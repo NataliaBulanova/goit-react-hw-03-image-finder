@@ -1,8 +1,10 @@
+import Btn from "./Button.styled";
+
 const Button = ({ handleClick }) => {
   return (
-    <button type="button" onClick={() => handleClick()}>
+    <Btn type="button" onClick={() => handleClick()}>
       Load more
-    </button>
+    </Btn>
   );
 };
 

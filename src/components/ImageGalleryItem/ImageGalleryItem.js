@@ -1,8 +1,16 @@
-const ImageGalleryItem = ({ id, webformatURL, tags, largeImageURL }) => {
+import { GalleryItem, Image } from "./ImageGalleryItem.styled";
+
+const ImageGalleryItem = ({
+  id,
+  webformatURL,
+  tags,
+  largeImageURL,
+  handleClick,
+}) => {
   return (
-    <li key={id}>
-      <img src={webformatURL} alt={tags} data-large={largeImageURL}></img>
-    </li>
+    <GalleryItem key={id}>
+      <Image src={webformatURL} alt={tags} onClick={handleClick} />
+    </GalleryItem>
   );
 };
 

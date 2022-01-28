@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { createPortal } from "react-dom";
-import { ModalBackdrop, ModalContainer } from "./Modal.styled";
+import { ModalBackdrop, ModalContainer, CloseButton } from "./Modal.styled";
+import { ReactComponent as CloseIcon } from "../../images/cross.svg";
 
 const modalRoot = document.querySelector("#modal-root");
 
@@ -29,7 +30,17 @@ class Modal extends Component {
   render() {
     return createPortal(
       <ModalBackdrop onClick={this.handleBackDropClick}>
-        <ModalContainer>{this.props.children}</ModalContainer>
+        <CloseButton type="button" aria-label="close modal">
+          <CloseIcon
+            width="30"
+            height="30"
+            fill="fff"
+            onClick={this.props.onClose}
+          />
+        </CloseButton>
+        <ModalContainer>
+          <img src={this.props.largeImageURL} alt="" width="800" />
+        </ModalContainer>
       </ModalBackdrop>,
       modalRoot
     );
@@ -37,3 +48,12 @@ class Modal extends Component {
 }
 
 export default Modal;
+
+// render() {
+//   return createPortal(
+//     <ModalBackdrop onClick={this.handleBackDropClick}>
+//       <ModalContainer>{this.props.children}</ModalContainer>
+//     </ModalBackdrop>,
+//     modalRoot
+//   );
+// }

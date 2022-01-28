@@ -1,4 +1,6 @@
 import "./App.css";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Audio } from "react-loader-spinner";
 import { Component } from "react";
 import SearchBar from "./components/Searchbar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
@@ -13,6 +15,7 @@ class App extends Component {
     query: "",
     page: 1,
     loader: false,
+    largeImageURL: "",
   };
 
   toggleModal = () => {
@@ -26,6 +29,12 @@ class App extends Component {
 
   onLoadMoreHandler = () => {
     this.setState((prevState) => ({ page: prevState.page + 1 }));
+  };
+
+  handleModalOpener = (largeImageURL) => {
+    this.toggleModal();
+    console.log(largeImageURL);
+    this.setState({ largeImageURL });
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -44,25 +53,19 @@ class App extends Component {
     return (
       <div className="App">
         <SearchBar onSubmit={this.onSubmitHandler} />
-        <button type="button" onClick={this.toggleModal}>
-          Open modal
-        </button>
+        <Audio heigth="100" width="100" color="grey" ariaLabel="loading" />;
         {this.state.showModal && (
-          <Modal onClose={this.toggleModal}>
-            <p>
-              This HTML file is a template. If you open it directly in the
-              browser, you will see an empty page. You can add webfonts, meta
-              tags, or analytics to this file. The build step will place the
-              bundled scripts into the tag. To begin the development, run `npm
-              start` or `yarn start`. To create a production bundle, use `npm
-              run build` or `yarn build`.
-            </p>
-            <button type="button" onClick={this.toggleModal}>
-              Close Modal
-            </button>
-          </Modal>
+          <Modal
+            onClose={this.toggleModal}
+            largeImageURL={this.state.largeImageURL}
+          ></Modal>
         )}
-        {this.state.images && <ImageGallery images={this.state.images} />}
+        {this.state.images && (
+          <ImageGallery
+            images={this.state.images}
+            onImage={this.handleModalOpener}
+          />
+        )}
         {this.state.images && <Button handleClick={this.onLoadMoreHandler} />}
       </div>
     );
