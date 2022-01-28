@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "https://pixabay.com/api";
 
@@ -14,6 +15,11 @@ const FetchImagesWithQuery = async (searchQuery, page) => {
       largeImageURL,
     })
   );
+
+  if (!images.length) {
+    toast("Nothing was found by your query");
+    return;
+  }
 
   return images;
 };

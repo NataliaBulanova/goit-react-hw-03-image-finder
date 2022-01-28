@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Component } from "react";
 import { createPortal } from "react-dom";
 import { ModalBackdrop, ModalContainer, CloseButton } from "./Modal.styled";
@@ -25,6 +26,11 @@ class Modal extends Component {
     if (event.target === event.currentTarget) {
       this.props.onClose();
     }
+  };
+
+  propType = {
+    largeImageURL: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
   };
 
   render() {

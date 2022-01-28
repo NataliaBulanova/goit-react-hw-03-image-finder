@@ -1,9 +1,11 @@
+import PropTypes from "prop-types";
 import { Component } from "react";
+import { ReactComponent as SearchIcon } from "../../images/search.svg";
+import { toast } from "react-toastify";
 import {
   SearchContainer,
   SearchForm,
   SearchButton,
-  ButtonLabel,
   ButtonInput,
 } from "./Searchbar.styled";
 
@@ -19,7 +21,9 @@ class SearchBar extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    this.state.query.trim()
+      ? this.props.onSubmit(this.state)
+      : toast("Enter the word");
     this.reset();
   };
 
@@ -27,12 +31,16 @@ class SearchBar extends Component {
     this.setState({ query: "" });
   };
 
+  propType = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   render() {
     return (
       <SearchContainer>
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchButton type="submit">
-            <ButtonLabel>Search</ButtonLabel>
+            <SearchIcon width="30" height="30" fill="fff" />
           </SearchButton>
 
           <ButtonInput
